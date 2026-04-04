@@ -5,5 +5,5 @@ packages:
   device_base: !include boards/nodemcu32.yml
 
 dashboard_import:
-  package_import_url: github://yoziru/esphome-zehnder-comfoair/zehnder-comfoair-q-esp32-evb.dashboard.yml
-  #package_import_url: github://WatsonDue2/esphome-zehnder-comfoair/zehnder-comfoair-q-nodemcu32.dashboard.yml
+  #package_import_url: github://yoziru/esphome-zehnder-comfoair/zehnder-comfoair-q-esp32-evb.dashboard.yml
+  package_import_url: github://WatsonDue2/esphome-zehnder-comfoair/zehnder-comfoair-q-nodemcu32.dashboard.yml
