@@ -2,4 +2,3 @@
 
 # override external_components to use the dashboard version
 external_components: !include packages/external_components.dashboard.yml
-
