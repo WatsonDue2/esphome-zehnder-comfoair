@@ -2,6 +2,6 @@
 substitutions:
   can_tx_pin: GPIO4
   can_rx_pin: GPIO5
-  board: esp32dev
+  board: esp32
   variant: esp32
   flash_size: 4MB
