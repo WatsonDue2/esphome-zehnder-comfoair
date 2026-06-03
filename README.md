@@ -1,4 +1,5 @@
 # Zehnder Comfoair Q ESPHome
+Personal fork of the fantastic work of yoziru: https://yoziru.github.io/esphome-zehnder-comfoair/
 
 This project lets you use an ESP32 device with a CAN interface to interact with the Zehnder ComfoAir Q ventilation unit. Tested with:
 - [Olimex ESP32-EVB-EA-IND](docs/esp32-evb.md) using its internal CAN bus component + separate power supply
