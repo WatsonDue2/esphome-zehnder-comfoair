@@ -12,7 +12,7 @@ namespace zehnder_comfoair_q
         ESP_LOGI(TAG, "Startup delay complete, joining CAN bus now.");
 
         // do a first request of all PDOs some time after starting (helpful for long intervals)
-        this->set_timeout(1000 * 10, [this]()
+        this->set_timeout(1000 * 2, [this]()
                           { this->update(); });
     }
 
