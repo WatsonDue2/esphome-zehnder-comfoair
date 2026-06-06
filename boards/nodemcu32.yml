@@ -1,7 +1,7 @@
 # Generic ESP32
 substitutions:
-  can_tx_pin: GPIO17  # GPIO4 seems to cause issues at boot with CANBus, trying with GPIO17
-  can_rx_pin: GPIO16 # Don't use GPIO5 as it may send bad packets on the bus during start up
+  can_tx_pin: GPIO17
+  can_rx_pin: GPIO16
   board: esp32dev
   variant: ESP32
   flash_size: 4MB
