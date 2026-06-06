@@ -3,16 +3,9 @@
 namespace zehnder_comfoair_q
 {
     void ZehnderComfoairQ::setup() {
-        // Startup delay to avoid CAN bus conflicts with Zehnder Option Box and display
-        // during power instability or simultaneous reboot. Gives the VMC time to
-        // re-establish internal CAN communication before this node joins the bus.
-        const uint32_t STARTUP_DELAY_MS = 10000;  // 10 seconds
-        ESP_LOGI(TAG, "Startup delay: waiting %u ms before joining CAN bus...", STARTUP_DELAY_MS);
-        delay(STARTUP_DELAY_MS);
-        ESP_LOGI(TAG, "Startup delay complete, joining CAN bus now.");
 
         // do a first request of all PDOs some time after starting (helpful for long intervals)
-        this->set_timeout(1000 * 2, [this]()
+        this->set_timeout(1000 * 10, [this]()
                           { this->update(); });
     }
 
