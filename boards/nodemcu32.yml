@@ -5,3 +5,4 @@ substitutions:
   board: esp32dev
   variant: ESP32
   flash_size: 4MB
+# Note: after changing the GPIO from 4-5 to 16-17 for rx-tx canbus, the issue about optionbox and comfoconnect hanging on vmc startup seems fixed
