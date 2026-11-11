@@ -3,6 +3,7 @@
 #include <esphome.h>
 #include "airflow_constraints.h"
 #include <cmath>
+#include <unordered_map>
 
 using namespace esphome; // needed for ESP_LOGx to work
 using namespace esphome::canbus;
@@ -165,7 +166,17 @@ namespace zehnder_comfoair_q
             for (size_t i = 0; i < 4; i++)
                 seconds |= uint32_t(message[i]) << (8 * i);
             raw->publish_state(seconds);
-            formatted->publish_state(seconds_to_human_readable(seconds));
+
+            // These values can arrive every second, but Home Assistant only needs
+            // a refreshed countdown every 10 seconds (matching the fork's config).
+            static std::unordered_map<const text_sensor::TextSensor *, uint32_t> last_publish_ms;
+            const uint32_t now = millis();
+            const auto last = last_publish_ms.find(formatted);
+            if (last == last_publish_ms.end() || uint32_t(now - last->second) >= 10000)
+            {
+                formatted->publish_state(seconds_to_human_readable(seconds));
+                last_publish_ms[formatted] = now;
+            }
         }
 
         static std::string seconds_to_human_readable(int64_t seconds)

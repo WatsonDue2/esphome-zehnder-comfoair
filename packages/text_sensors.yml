@@ -123,14 +123,10 @@ text_sensor:
   - platform: template
     id: next_fan_change_in # PDO 81 (raw)
     name: "Next Fan Change In"
-    filters:
-      - throttle: 10s
 
   - platform: template
     id: next_bypass_change_in # PDO 82 (raw)
     name: "Next Bypass Change In"
-    filters:
-      - throttle: 10s
 
   - platform: template
     id: ventilation_mode # PDO 225
