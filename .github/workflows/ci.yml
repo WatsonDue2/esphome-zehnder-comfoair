@@ -4,6 +4,19 @@ on:
   pull_request:
 
 jobs:
+  tests:
+    name: Host C++ startup and feedback tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - name: Run tests
+        run: make test
+      - name: Run host tests with ASan and UBSan
+        run: ESPHOME_TEST_SANITIZE=1 make test
+      - name: Check iterator bounds
+        run: ESPHOME_TEST_BOUNDS=1 make test
+
   ci:
     name: Building ${{ matrix.file }}
     runs-on: ubuntu-latest
@@ -15,10 +28,16 @@ jobs:
           - zehnder-comfoair-q-m5stack-atom.yml
           - zehnder-comfoair-q-m5stack-atoms3.yml
           - zehnder-comfoair-q-m5stack-nanoc6.yml
+          - tests/firmware/modulated_fan_speed.yml
+          - tests/firmware/airflow_constraints.yml
+          - tests/firmware/filter_lifetime.yml
+          - tests/firmware/temperature_profile_mode.yml
     steps:
-      - uses: actions/checkout@v4.3.0
+      - uses: actions/checkout@v7.0.1
       - name: Mock secrets.yaml from example
-        run: cp secrets.yaml.example secrets.yaml
+        run: |
+          cp secrets.yaml.example secrets.yaml
+          cp secrets.yaml.example tests/firmware/secrets.yaml
       - name: Get ESPHome version
         id: get_esphome_version
         # read esphome version from requirements.txt
@@ -26,7 +45,19 @@ jobs:
           esphome_version=$(grep esphome requirements.txt | cut -d'=' -f3)
           echo "esphome_version=$esphome_version" >> "$GITHUB_OUTPUT"
       - name: Build ESPHome firmware to verify configuration
-        uses: esphome/build-action@v7.0.0
+        uses: esphome/build-action@v8.1.0
         with:
           yaml-file: ${{ matrix.file }}
           version: ${{ steps.get_esphome_version.outputs.esphome_version }}
+
+  dashboard-config:
+    name: Validating Device Builder configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Install ESPHome
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+      - name: Validate dashboard config
+        run: .venv/bin/esphome config tests/dashboard_config.yml
