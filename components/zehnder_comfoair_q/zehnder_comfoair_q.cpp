@@ -2,7 +2,8 @@
 
 namespace zehnder_comfoair_q
 {
-    void ZehnderComfoairQ::setup() {
+    void ZehnderComfoAirQ::setup()
+    {
 
         // do a first request of all PDOs some time after starting (helpful for long intervals)
         this->set_timeout(1000 * 10, [this]()
