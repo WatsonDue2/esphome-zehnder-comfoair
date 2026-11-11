@@ -1,4 +1,11 @@
-<<: !include zehnder-comfoair-q-nodemcu32.yml
+substitutions:
+  zehnder_comfoair_ref: main
 
-# override external_components to use the dashboard version
+packages:
+  base: !include packages/base.yml
+  device_base: !include boards/nodemcu32.yml
+
 external_components: !include packages/external_components.dashboard.yml
+
+dashboard_import:
+  package_import_url: github://WatsonDue2/esphome-zehnder-comfoair/zehnder-comfoair-q-nodemcu32.dashboard.yaml

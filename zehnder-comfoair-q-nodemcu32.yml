@@ -1,3 +1,6 @@
+substitutions:
+  zehnder_comfoair_ref: main
+
 external_components: !include packages/external_components.yml
 
 packages:
@@ -6,4 +9,4 @@ packages:
 
 dashboard_import:
   #package_import_url: github://yoziru/esphome-zehnder-comfoair/zehnder-comfoair-q-esp32-evb.dashboard.yml
-  package_import_url: github://WatsonDue2/esphome-zehnder-comfoair/zehnder-comfoair-q-nodemcu32.dashboard.yml
+  package_import_url: github://WatsonDue2/esphome-zehnder-comfoair/zehnder-comfoair-q-nodemcu32.dashboard.yaml
